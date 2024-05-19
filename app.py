@@ -8,12 +8,12 @@ import pandas as pd
 try:
     grid_search = pickle.load(open('model_fraud.sav', 'rb'))
 except FileNotFoundError:
-    st.error("Model file not found")
+    st.error("Model file Tidak ada")
     st.stop()
 
 
 if not isinstance(grid_search, GridSearchCV):
-    st.error("Invalid model file")
+    st.error("model file alah")
     st.stop()
 
 model_fraud = grid_search.best_estimator_
@@ -38,7 +38,7 @@ data['clean_teks'].fillna('', inplace=True)
 data['clean_teks'] = data['clean_teks'].astype(str)
 
 if 'clean_teks' not in data.columns:
-    st.error("The 'clean_teks' column is missing in your data.")
+    st.error("The 'clean_teks' column is missing")
     st.stop()
     
 
@@ -48,7 +48,7 @@ loaded_vec.fit(data['clean_teks'])
 st.title('Klasifikasi SMS Penipuan MNB')
 st.write(f"**Model Accuracy (Best Score):** {grid_search.best_score_:.2f}")
 
-input_method = st.radio("Select input method", ["Text Input", "File Upload"])
+input_method = st.radio("Pilih input method", ["Text Input", "File Upload"])
 
 if input_method == "Text Input":
     clean_teks = st.text_area('Masukan SMS')  
